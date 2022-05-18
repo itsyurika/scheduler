@@ -98,11 +98,10 @@ storiesOf("Button", module)
       ))
       .add("Clickable", () => (
         <InterviewerListItem
-          id={interviewer.id}
-          name={interviewer.name}
-          avatar={interviewer.avatar}
-          setInterviewer={action("setInterviewer")}
-        />
+        name={interviewer.name}
+        avatar={interviewer.avatar}
+        setInterviewer={() => action("setInterviewer")(interviewer.id)}
+      />
       ));
 
       const interviewers = [
