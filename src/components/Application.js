@@ -14,11 +14,12 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday", 
     days: [], 
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
 
   const setDay = day => setState({...state, day});
-  const setDays = days => setState(prev => ({...prev, days}));
+  // const setDays = days => setState(prev => ({...prev, days}));
 
   useEffect(()=> {
     Promise.all([
@@ -28,14 +29,14 @@ export default function Application(props) {
   ]).then((response) => {
     setState(prev => ({...prev,
       days: response[0].data,
-      appointments: response[1].data
-    }))
+      appointments: response[1].data,
+      interviewers: response[2].data
+    }));
+    console.log("interviewers: ", response[2].data);
   }).catch((e)=>{console.log("error occurred during promise All :" , e)});
   }, []);
 
-    const stateObj = {days: state.days, appointments: state.appointments}
-
-  const dailyAppointments = getAppointmentsForDay(stateObj, state.day);
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   const parsedAppointments = dailyAppointments.map((appointment)=> {
     return(
