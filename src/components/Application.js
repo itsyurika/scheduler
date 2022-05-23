@@ -36,6 +36,53 @@ export default function Application(props) {
   }).catch((e)=>{console.log("error occurred during promise All :" , e)});
   }, []);
 
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: {...interview }
+    };
+    
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    // setState({...state, appointments});
+
+    console.log("interview data: ", interview);
+    console.log("appointment data: ", appointment);
+
+    axios.put(`/api/appointments/${id}`, appointment)
+    .then((response) => {
+      console.log("response from axios put request: ", response);
+      setState({...state, appointments});
+      console.log("state : ", state);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  function cancelInterview(id) {
+    console.log("id: ", id);
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    console.log("appointments object inserting: ", appointments);
+    axios.delete(`/api/appointments/${id}`, appointment)
+    .then((response) => {
+      console.log("response from api delete request : ", response);
+    return setState({...state, appointments});
+    })
+    .then(() => console.log("state : ", state));
+  }
+
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
   const parsedAppointments = dailyAppointments.map((appointment)=> {
@@ -46,10 +93,13 @@ export default function Application(props) {
         {...appointment}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     )
   })
-  
+
+
   return (
     <main className="layout">
       <section className="sidebar">
