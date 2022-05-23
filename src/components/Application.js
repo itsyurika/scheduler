@@ -52,15 +52,12 @@ export default function Application(props) {
     console.log("interview data: ", interview);
     console.log("appointment data: ", appointment);
 
-    axios.put(`/api/appointments/${id}`, appointment)
+    return axios.put(`/api/appointments/${id}`, appointment)
     .then((response) => {
       console.log("response from axios put request: ", response);
       setState({...state, appointments});
-      console.log("state : ", state);
     })
-    .catch((error) => {
-      console.log(error);
-    });
+    .catch((error) => {console.log("error while updating the server with new appointment: ", error)});
   }
 
   function cancelInterview(id) {
@@ -74,13 +71,11 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
-    console.log("appointments object inserting: ", appointments);
-    axios.delete(`/api/appointments/${id}`, appointment)
+    return axios.delete(`/api/appointments/${id}`, appointment)
     .then((response) => {
-      console.log("response from api delete request : ", response);
-    return setState({...state, appointments});
+     setState({...state, appointments});
     })
-    .then(() => console.log("state : ", state));
+    .error((error) => {console.log("error while deleting item in server: ", error)})
   }
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
