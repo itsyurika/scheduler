@@ -19,9 +19,10 @@ const Appointment = (props) => {
   const SAVING = "SAVING";
   const DELETING = "DELETING";
   const EDIT = "EDIT";
-  const ERROR = "ERROR";
+  const ERROR_SAVE = "ERROR_SAVE";
+  const ERROR_DELETE = "ERROR_DELETE";
 
-  const { mode, transition, back } = useVisualMode(
+  const { mode, transition, back, history } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
 
@@ -31,16 +32,20 @@ const Appointment = (props) => {
       interviewer
     };
     transition(SAVING);
-    console.log("mode : ", mode);
-    props.bookInterview(props.id, interview).then(() => transition(SHOW));
+    // console.log("mode : ", mode);
+    props.bookInterview(props.id, interview)
+    .then(() => transition(SHOW))
+    .catch((error) => {
+      transition(ERROR_SAVE, true)});
   }
 
   function deleteInterview(id) {
 
-    transition(DELETING);
+    transition(DELETING, true);
+    // console.log("history from deleteInterview fxn: ", history);
     props.cancelInterview(id)
-      .then(() => transition(EMPTY));
-    // transition(EMPTY);
+    .then(() => transition(EMPTY))
+    .catch((error) => transition(ERROR_DELETE, true));
   }
 
   return (
@@ -75,6 +80,8 @@ const Appointment = (props) => {
           onCancel={() => back()}
           onSave={save}
         />}
+        {mode === ERROR_SAVE && <Error message={"Error occurred during saving"} onClose={() => back()}/>}
+        {mode === ERROR_DELETE && <Error message={"Error occurred during deleting"} onClose={() => back()}/>}
       </article>
 
     </Fragment>

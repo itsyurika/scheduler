@@ -17,7 +17,6 @@ const Form = (props) => {
     reset();
     props.onCancel();
   }
-  console.log("props.interviewers: ", props.interviewers);
 
   return (
     <main className="appointment__card appointment__card--create">
