@@ -7,6 +7,7 @@ const Form = (props) => {
 
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [error, setError] = useState("");
 
   const reset = () => {
     setStudent("");
@@ -16,6 +17,18 @@ const Form = (props) => {
   const cancel = () => {
     reset();
     props.onCancel();
+  }
+
+  const validate = () => {
+    if(!student) {
+      setError("you must enter student name");
+      return;
+    }
+    if(!interviewer) {
+      setError("you must select an interviewer");
+      return;
+    }
+    props.onSave(student, interviewer);
   }
 
   return (
@@ -29,11 +42,8 @@ const Form = (props) => {
             placeholder="Enter Student Name"
             onChange={(event)=> {setStudent(event.target.value)}}
             value={student}
-          /*
-            This must be a controlled component
-            your code goes here
-          */
           />
+          <section className="appointment__validation">{error}</section>
         </form>
         <InterviewerList
           interviewers={props.interviewers}
@@ -44,7 +54,7 @@ const Form = (props) => {
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel}>Cancel</Button>
-          <Button confirm onClick={() => {props.onSave(student, interviewer)}}>Save</Button>
+          <Button confirm onClick={validate}>Save</Button>
         </section>
       </section>
     </main>

@@ -22,17 +22,17 @@ const Appointment = (props) => {
   const ERROR_SAVE = "ERROR_SAVE";
   const ERROR_DELETE = "ERROR_DELETE";
 
-  const { mode, transition, back, history } = useVisualMode(
+  const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
 
   function save(name, interviewer) {
+
     const interview = {
       student: name,
       interviewer
     };
     transition(SAVING);
-    // console.log("mode : ", mode);
     props.bookInterview(props.id, interview)
     .then(() => transition(SHOW))
     .catch((error) => {
@@ -42,7 +42,6 @@ const Appointment = (props) => {
   function deleteInterview(id) {
 
     transition(DELETING, true);
-    // console.log("history from deleteInterview fxn: ", history);
     props.cancelInterview(id)
     .then(() => transition(EMPTY))
     .catch((error) => transition(ERROR_DELETE, true));
@@ -61,7 +60,6 @@ const Appointment = (props) => {
             transition(EDIT);
           }
           } />}
-        {/* for Show component, sending props.interview  - which contains student name and interviewer object */}
         {mode === CREATE && <Form
           interviewers={props.interviewers}
           onCancel={() => back()}
@@ -75,7 +73,8 @@ const Appointment = (props) => {
           onConfirm={() => deleteInterview(props.id)}
         />}
         {mode === EDIT && <Form
-          {...props.interview}
+          student={props.interview.student}
+          interviewer={props.interview.interviewer.id}
           interviewers={props.interviewers}
           onCancel={() => back()}
           onSave={save}
