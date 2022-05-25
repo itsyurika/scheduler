@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
-
+//component to display when the user tries to create a new appointment
 const Form = (props) => {
 
   const [student, setStudent] = useState(props.student || "");

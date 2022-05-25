@@ -1,5 +1,6 @@
 import React from "react";
 
+//component to display when there is an existing interview for the appointment slot
 const Show = (props) => {
   return (
     <main className="appointment__card appointment__card--show">

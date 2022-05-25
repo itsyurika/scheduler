@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import InterviewerListItem from './InterviewerListItem';
 import 'components/InterviewerList.scss';
 
@@ -28,6 +29,7 @@ const InterviewerList = (props) => {
   );
 };
 
+//propTypes testing to require array format
 InterviewerList.propTypes = {
   interviewers: PropTypes.array.isRequired
 }

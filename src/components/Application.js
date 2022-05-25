@@ -1,13 +1,15 @@
 import React from "react";
 
-
 import "components/Application.scss";
+
 import DayList from "./DayList";
 import Appointment from "./Appointment";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 import useApplicationData from "hooks/useApplicationData";
 
+//Application component only responsible for displaying appointment component accordingly
 export default function Application(props) {
+
   const {
     state,
     setDay,
@@ -18,6 +20,7 @@ export default function Application(props) {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
   
+  //renders appointments for the selected day
   const parsedAppointments = dailyAppointments.map((appointment)=> {
     const interview = getInterview(state, appointment.interview);
     return(
@@ -30,8 +33,7 @@ export default function Application(props) {
         cancelInterview={cancelInterview}
       />
     )
-  })
-
+  });
 
   return (
     <main className="layout">

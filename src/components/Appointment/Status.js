@@ -1,5 +1,6 @@
 import React from "react";
 
+//component to display during the transition from form to delete/save action
 const Status = (props) => {
   return (
     <main className="appointment__card appointment__card--status">

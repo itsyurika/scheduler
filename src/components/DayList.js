@@ -1,6 +1,7 @@
 import React from 'react';
 import DayListItem from './DayListItem';
 
+// component responsible for containing and displaying set of daylistitems 
 const DayList = (props) => {
   const {days, value, onChange} = props;
   const listedDays = days.map((eachDay) => {
@@ -13,7 +14,8 @@ const DayList = (props) => {
       setDay={()=>onChange(eachDay.name)}
       />
     )
-  })
+  });
+  
   return (
     <ul>
       {listedDays}
