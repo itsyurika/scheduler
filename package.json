@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@testing-library/react-hooks": "^8.0.0",
     "axios": "^0.27.2",
     "classnames": "^2.2.6",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-hooks-testing-library": "^0.6.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "react-test-render": "^1.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,6 +45,7 @@
     "@testing-library/react": "^8.0.7",
     "babel-loader": "^8.0.5",
     "prop-types": "^15.8.1",
+    "react-test-renderer": "^16.14.0",
     "sass": "^1.51.0"
   },
   "jest": {

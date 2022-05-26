@@ -17,6 +17,21 @@ Interview Scheduler comes with vairous testing environments to test its function
 ## Setup
 
 Install dependencies with `npm install`.
+You will need to set up the server independantly using scheduler-api.
+Scheduler-api can be found here [https://github.com/lighthouse-labs/scheduler-api]
+
+## Dependencies
+- react
+- axios
+- classnames
+- normalize.css
+- react-dom
+- react-test-render
+- react-hooks-testing-library
+- react-scripts
+
+
+
 
 ## Running Webpack Development Server
 
